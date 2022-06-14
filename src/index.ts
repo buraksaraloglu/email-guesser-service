@@ -2,6 +2,8 @@ import { join } from 'path';
 import Fastify from 'fastify';
 import autoLoad from '@fastify/autoload';
 
+import config from './plugins/config';
+
 const fastify = Fastify({
   logger: {
     transport: {
