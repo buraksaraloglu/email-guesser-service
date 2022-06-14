@@ -2,7 +2,7 @@ import { clearUrl } from '../helpers';
 
 interface ICase {
   given: string;
-  expected: string;
+  expected: string | null;
 }
 
 const casify = async (title: string, cases: ICase[]) => {
@@ -49,14 +49,14 @@ casify('should return clean url', [
 casify('should return empty string if url is not valid', [
   {
     given: 'ttt...com',
-    expected: ''
+    expected: null
   },
   {
     given: 'http://.com',
-    expected: ''
+    expected: null
   },
   {
     given: 'babbel 👋',
-    expected: ''
+    expected: null
   }
 ]);

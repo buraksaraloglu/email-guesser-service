@@ -4,9 +4,9 @@ export const isValidUrl = (url: string) => {
   return regex.test(url);
 };
 
-export const clearUrl = (url: string): string => {
+export const clearUrl = (url: string): string | null => {
   if (!isValidUrl(url)) {
-    return '';
+    return null;
   }
 
   const urlWithoutProtocol = url.replace(/^https?:\/\//, '');
@@ -27,7 +27,7 @@ export const getFirstAndLastName = (fullName: string): string[] | null => {
     return null;
   }
 
-  const cleanFullName = fullName.trim().replace(/\s+/g, ' ');
+  const cleanFullName = fullName.toLowerCase().trim().replace(/\s+/g, ' ');
 
   // ? How sould we handle middle names
   const [firstName, ...rest] = cleanFullName.split(' ');

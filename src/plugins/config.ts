@@ -29,13 +29,13 @@ const ajv = new Ajv({
 
 export type Config = Static<typeof ConfigSchema>;
 
-const configPlugin: FastifyPluginAsync = async (server) => {
+const configPlugin: FastifyPluginAsync = async (fastify) => {
   const validate = ajv.compile(ConfigSchema);
   const valid = validate(process.env);
   if (!valid) {
     throw new Error('.env file validation failed - ' + JSON.stringify(validate.errors, null, 2));
   }
-  server.decorate('config', process.env);
+  fastify.decorate('config', process.env);
 };
 
 declare module 'fastify' {

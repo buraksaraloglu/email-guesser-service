@@ -12,23 +12,23 @@ Email guesser service's purpose is to guess the email address of a person from a
 
 ```zsh
 # Install dependencies
-pnpm i
+npm i
 
 # Activate git hooks
-pnpm prepare
+npm run prepare
 
 # Start development
-pnpm dev
+npm run dev
 
 # Build production code
-pnpm build
+npm run build
 
 # Run production code
 node build
 
 # New commit with interactive CLI
-pnpm cz
+npm run cz
 
 # Auto generate changelogs and versioning
-pnpm release
+npm run release
 ```
