@@ -8,7 +8,9 @@
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'",
     "lint": "prettier --write 'src/**/*.{js,ts,json,md}' && eslint --ignore-path .gitignore .",
     "cz": "cz",
-    "release": "standard-version --no-verify"
+    "release": "standard-version --no-verify",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "Burak Saraloglu",
   "license": "MIT",
@@ -16,6 +18,7 @@
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
     "@commitlint/cz-commitlint": "^17.0.0",
+    "@types/jest": "^28.1.1",
     "@types/node": "^17.0.41",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
@@ -26,6 +29,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
     "inquirer": "^8.2.4",
+    "jest": "^28.1.1",
     "json-schema-to-ts": "^2.5.3",
     "lint-staged": "^13.0.1",
     "nodemon": "^2.0.16",
@@ -33,13 +37,16 @@
     "pino-pretty": "^8.0.0",
     "prettier": "^2.6.2",
     "standard-version": "^9.5.0",
+    "supertest": "^6.2.3",
     "thread-stream": "^1.0.0",
+    "ts-jest": "^28.0.5",
     "typescript": "^4.7.3"
   },
   "dependencies": {
     "@fastify/autoload": "^5.0.0",
     "@fastify/sensible": "^5.0.0",
     "@fastify/swagger": "^7.2.0",
+    "dotenv": "^16.0.1",
     "fastify": "^4.0.0",
     "fastify-plugin": "^3.0.1"
   }
