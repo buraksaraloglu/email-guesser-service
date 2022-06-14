@@ -1,6 +1,6 @@
 # email-guesser-service
 
-Email guesser service's purpose is to guess the email address of a person from a given name with a common format with common URLs.
+Email guesser service's purpose is to guess the email address of a person from a given name with a conventional format of the domain URLs.
 
 ## Features
 
