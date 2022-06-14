@@ -9,7 +9,7 @@
     "lint": "prettier --write 'src/**/*.{js,ts,json,md}' && eslint --ignore-path .gitignore .",
     "cz": "cz",
     "release": "standard-version --no-verify",
-    "test": "jest",
+    "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch"
   },
   "author": "Burak Saraloglu",
@@ -52,6 +52,7 @@
     "dotenv": "^16.0.1",
     "env-schema": "^5.0.0",
     "fastify": "^4.0.0",
+    "fastify-cli": "^4.1.1",
     "fastify-plugin": "^3.0.1"
   }
 }

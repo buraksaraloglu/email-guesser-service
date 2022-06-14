@@ -1,6 +1,6 @@
 import cases from 'jest-in-case';
 
-import getEmailFormatConvention from '../getEmailFormatConvention';
+import { getEmailFormatConvention } from '../getEmailFormatConvention';
 import { EMAIL_ADDRESS_TYPE } from '../constants';
 
 function casify(obj) {

@@ -1,8 +1,8 @@
 import { join } from 'path';
-import Fastify from 'fastify';
+import * as fastify from 'fastify';
 import autoLoad from '@fastify/autoload';
 
-const fastify = Fastify({
+const app = fastify.default({
   logger: {
     transport: {
       target: 'pino-pretty',
@@ -16,21 +16,23 @@ const fastify = Fastify({
   }
 });
 
-fastify.register(autoLoad, {
+app.register(autoLoad, {
   dir: join(__dirname, 'plugins')
 });
 
-fastify.register(autoLoad, {
+app.register(autoLoad, {
   dir: join(__dirname, 'routes')
 });
 
 const start = async () => {
   try {
-    await fastify.listen({ port: 3400 });
+    await app.listen({ port: 3400 });
   } catch (err) {
-    fastify.log.error(err);
+    app.log.error(err);
     process.exit(1);
   }
 };
 
 start();
+
+export default app;

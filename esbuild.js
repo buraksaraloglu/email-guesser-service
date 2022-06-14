@@ -21,7 +21,7 @@ const getFilesRecursively = (dir) => {
 };
 getFilesRecursively('src');
 
-const entryPoints = fileArray.filter((file) => file.endsWith('.ts'));
+const entryPoints = fileArray.filter((file) => file.endsWith('.ts') && !file.endsWith('.test.ts'));
 
 const pinoPlugin = (options) => ({
   name: 'pino',
@@ -123,5 +123,5 @@ build({
   bundle: env === 'dev' ? false : true,
   platform: 'node',
   format: 'cjs',
-  plugins: env === 'dev' ? [] : [pinoPlugin({ transport: ['pino-pretty'] })]
+  plugins: env === 'dev' ? [] : [pinoPlugin()]
 });

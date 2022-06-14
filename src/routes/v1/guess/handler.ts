@@ -20,7 +20,7 @@ export const postGuessHandler: RouteHandler<{
   const cleanFullName = getFirstAndLastName(fullName);
 
   if (!cleanFullName) {
-    return invalidRequest(reply, { error: 'Invalid fullname' });
+    return invalidRequest(reply, { error: 'Invalid fullName' });
   }
 
   const cleanDomainUrl = clearUrl(domainUrl);
