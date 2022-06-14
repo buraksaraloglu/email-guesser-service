@@ -9,7 +9,7 @@
     "lint": "prettier --write 'src/**/*.{js,ts,json,md}' && eslint --ignore-path .gitignore .",
     "cz": "cz",
     "release": "standard-version --no-verify",
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --forceExit",
     "test:watch": "jest --watch"
   },
   "author": "Burak Saraloglu",
