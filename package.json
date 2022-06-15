@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "scripts": {
     "prepare": "husky install",
-    "check:types": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "start": "node dist",
     "dev": "nodemon",
     "build": "rm -rf build && node esbuild.js",
+    "deploy": "npm run build && npm start",
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'",
     "lint": "prettier --write 'src/**/*.{js,ts,json,md}' && eslint --ignore-path .gitignore .",
     "cz": "cz",

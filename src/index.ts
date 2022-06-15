@@ -1,6 +1,8 @@
 import { join } from 'path';
 import * as fastify from 'fastify';
 import autoLoad from '@fastify/autoload';
+import { config } from 'dotenv';
+config();
 
 const app = fastify.default({
   logger: {
@@ -26,7 +28,11 @@ app.register(autoLoad, {
 
 const start = async () => {
   try {
-    await app.listen({ port: 3400 });
+    const port = process.env.PORT || 3000;
+    await app.listen({
+      port: typeof port === 'string' ? parseInt(port) : port,
+      host: process.env.HOST || '0.0.0.0'
+    });
   } catch (err) {
     app.log.error(err);
     process.exit(1);

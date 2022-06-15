@@ -14,8 +14,7 @@ const ConfigSchema = Type.Strict(
   Type.Object({
     NODE_ENV: Type.Optional(Type.Enum(NodeEnv)),
     LOG_LEVEL: Type.Optional(Type.String()),
-    API_HOST: Type.Optional(Type.String()),
-    API_PORT: Type.Optional(Type.String())
+    PORT: Type.Optional(Type.Number())
   })
 );
 
