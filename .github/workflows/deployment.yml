@@ -9,8 +9,6 @@ on:
 jobs:
   lint:
     name: ⬣ ESLint
-    needs: [changes]
-    if: needs.changes.outputs.DEPLOYABLE == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
@@ -32,8 +30,6 @@ jobs:
 
   typecheck:
     name: ʦ TypeScript
-    needs: [changes]
-    if: needs.changes.outputs.DEPLOYABLE == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
@@ -55,8 +51,6 @@ jobs:
 
   jest:
     name: 🃏 Jest
-    needs: [changes]
-    if: needs.changes.outputs.DEPLOYABLE == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
@@ -78,9 +72,7 @@ jobs:
 
   build:
     name: 🐳 Build
-    needs: [changes]
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' &&
-      needs.changes.outputs.DEPLOYABLE == 'true' }}
+    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     # only build/deploy main branch on pushes
     steps:
