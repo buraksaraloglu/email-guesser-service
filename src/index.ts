@@ -1,6 +1,7 @@
 import { join } from 'path';
 import * as fastify from 'fastify';
 import autoLoad from '@fastify/autoload';
+import cors from '@fastify/cors';
 import { config } from 'dotenv';
 config();
 
@@ -16,6 +17,10 @@ const app = fastify.default({
       }
     }
   }
+});
+
+app.register(cors, {
+  origin: '*' // This is a bad practice, but it's ok for poc scale
 });
 
 app.register(autoLoad, {
