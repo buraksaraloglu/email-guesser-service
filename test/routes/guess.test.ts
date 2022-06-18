@@ -6,7 +6,7 @@ describe('guess route', () => {
       method: 'POST',
       url: '/v1/guess',
       payload: {
-        fullName: 'Burak Saraloglu',
+        fullName: 'Nina Simons',
         domainUrl: 'babbel.com'
       }
     });
@@ -14,7 +14,7 @@ describe('guess route', () => {
     expect(response.statusCode).toBe(200);
 
     const { email } = JSON.parse(response.payload);
-    expect(email).toEqual('bsaraloglu@babbel.com');
+    expect(email).toEqual('nsimons@babbel.com');
   });
 
   it('/guess -> responds with generated full name email', async () => {
@@ -22,15 +22,15 @@ describe('guess route', () => {
       method: 'POST',
       url: '/v1/guess',
       payload: {
-        fullName: 'Burak Saraloglu',
-        domainUrl: 'google.com'
+        fullName: 'Priya Kuber',
+        domainUrl: 'linkedin.com'
       }
     });
 
     expect(response.statusCode).toBe(200);
 
     const { email } = JSON.parse(response.payload);
-    expect(email).toEqual('buraksaraloglu@google.com');
+    expect(email).toEqual('priyakuber@linkedin.com');
   });
 
   it('/guess -> responds with 400 status code with invalid full name error', async () => {
