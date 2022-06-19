@@ -1,5 +1,13 @@
 import app from '../../src/index';
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+afterAll(async () => {
+  await app.close();
+});
+
 describe('guess route', () => {
   it('/guess -> responds with generated short name email', async () => {
     const response = await app.inject({
