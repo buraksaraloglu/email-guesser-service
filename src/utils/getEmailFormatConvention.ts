@@ -1,7 +1,7 @@
 import defaultEmails from '../shared/emailConventions';
 
 import { clearUrl, getFirstAndLastName } from './helpers';
-import { EMAIL_ADDRESS_TYPE } from './constants';
+import { EMAIL_ADDRESS_TYPE, IEmailAddress } from './constants';
 
 // An inmemory cache for email conventions
 // This is a temporary solution until we have a persistent storage
@@ -17,9 +17,9 @@ const getConvention = (firstName: string, email: string) => {
   return EMAIL_ADDRESS_TYPE.SHORT_NAME;
 };
 
-export const getEmailFormatConvention = (domain: string): string => {
-  if (conventions.has(domain)) {
-    return conventions.get(domain);
+export const getEmailFormatConvention = (companyUrl: IEmailAddress['url']): string => {
+  if (conventions.has(companyUrl)) {
+    return conventions.get(companyUrl);
   }
 
   Object.keys(defaultEmails).forEach((fullname) => {
@@ -30,19 +30,19 @@ export const getEmailFormatConvention = (domain: string): string => {
     }
 
     const email = defaultEmails[fullname];
-    const cleanDomain = clearUrl(email.split('@')[1]);
+    const cleanCompanyUrl = clearUrl(email.split('@')[1]);
 
-    if (!cleanDomain || conventions.has(cleanDomain)) {
+    if (!cleanCompanyUrl || conventions.has(cleanCompanyUrl)) {
       return;
     }
 
-    return conventions.set(cleanDomain, getConvention(firstName, email));
+    return conventions.set(cleanCompanyUrl, getConvention(firstName, email));
   });
 
-  if (conventions.has(domain)) {
-    return conventions.get(domain);
+  if (conventions.has(companyUrl)) {
+    return conventions.get(companyUrl);
   }
 
-  // ? How should we handle domains that are not in the default emails
+  // ? How should we handle company urls that are not in the default emails
   return EMAIL_ADDRESS_TYPE.FULL_NAME;
 };

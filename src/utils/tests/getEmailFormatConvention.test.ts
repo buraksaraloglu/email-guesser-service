@@ -4,16 +4,16 @@ import { getEmailFormatConvention } from '../getEmailFormatConvention';
 import { EMAIL_ADDRESS_TYPE } from '../constants';
 
 function casify(obj) {
-  return Object.entries(obj).map(([name, domain]) => ({
-    name: `${domain} - ${name}`,
-    domain
+  return Object.entries(obj).map(([name, companyUrl]) => ({
+    name: `${companyUrl} - ${name}`,
+    companyUrl
   }));
 }
 
 cases(
   'getEmailFormatConvention: full name',
-  ({ domain }) => {
-    expect(getEmailFormatConvention(domain)).toBe(EMAIL_ADDRESS_TYPE.FULL_NAME);
+  ({ companyUrl }) => {
+    expect(getEmailFormatConvention(companyUrl)).toBe(EMAIL_ADDRESS_TYPE.FULL_NAME);
   },
   casify({
     'valid full name - 1': 'google.com',
@@ -24,8 +24,8 @@ cases(
 
 cases(
   'getEmailFormatConvention: short name',
-  ({ domain }) => {
-    expect(getEmailFormatConvention(domain)).toBe(EMAIL_ADDRESS_TYPE.SHORT_NAME);
+  ({ companyUrl }) => {
+    expect(getEmailFormatConvention(companyUrl)).toBe(EMAIL_ADDRESS_TYPE.SHORT_NAME);
   },
   casify({
     'valid short name': 'babbel.com'

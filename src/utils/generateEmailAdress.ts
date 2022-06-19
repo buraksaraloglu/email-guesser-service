@@ -4,17 +4,17 @@ import { EMAIL_ADDRESS_TYPE } from './constants';
 export const generateEmailAddress = ({
   firstName,
   lastName,
-  domain
+  companyUrl
 }: {
   firstName: string;
   lastName: string;
-  domain: string;
+  companyUrl: string;
 }): string => {
-  const emailFormatConvention = getEmailFormatConvention(domain);
+  const emailFormatConvention = getEmailFormatConvention(companyUrl);
 
   if (emailFormatConvention === EMAIL_ADDRESS_TYPE.FULL_NAME) {
-    return `${firstName}${lastName}@${domain}`;
+    return `${firstName}${lastName}@${companyUrl}`;
   }
 
-  return `${firstName[0]}${lastName}@${domain}`;
+  return `${firstName[0]}${lastName}@${companyUrl}`;
 };

@@ -15,24 +15,24 @@ export const postGuessHandler: RouteHandler<{
   Body: Body;
   Reply: postGuessResponse;
 }> = async function (req, reply) {
-  const { fullName, domainUrl } = req.body;
+  const { fullName, companyUrl } = req.body;
   const cleanFullName = getFirstAndLastName(fullName);
-  const cleanDomainUrl = clearUrl(domainUrl);
+  const cleancompanyUrl = clearUrl(companyUrl);
 
   if (!cleanFullName) {
     return invalidRequest(reply, { error: 'Invalid fullName' });
   }
 
-  if (!cleanDomainUrl) {
-    return invalidRequest(reply, { error: 'Invalid domainUrl' });
+  if (!cleancompanyUrl) {
+    return invalidRequest(reply, { error: 'Invalid companyUrl' });
   }
 
-  if (cleanDomainUrl === 'invalid.com') {
-    return invalidRequest(reply, { error: `Invalid company URL: ${cleanDomainUrl}` });
+  if (cleancompanyUrl === 'invalid.com') {
+    return invalidRequest(reply, { error: `Invalid company URL: ${cleancompanyUrl}` });
   }
 
   const [firstName, lastName] = cleanFullName;
-  const email = generateEmailAddress({ firstName, lastName, domain: cleanDomainUrl });
+  const email = generateEmailAddress({ firstName, lastName, companyUrl: cleancompanyUrl });
 
   reply.code(200).send({ email });
 };

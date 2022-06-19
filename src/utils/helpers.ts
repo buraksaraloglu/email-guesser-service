@@ -14,9 +14,9 @@ export const clearUrl = (url: IEmailAddress['url']): string | null => {
   const urlWithoutProtocol = url.replace(/^https?:\/\//, '');
   const urlWithoutWww = urlWithoutProtocol.replace(/^www\./, '');
   const urlWithoutHashAndQuery = urlWithoutWww.split('?')[0];
-  const domain = urlWithoutHashAndQuery.split('/')[0];
+  const cleanUrl = urlWithoutHashAndQuery.split('/')[0];
 
-  return domain;
+  return cleanUrl;
 };
 
 const isValidFullName = (fullName: IEmailAddress['fullName']): boolean => {

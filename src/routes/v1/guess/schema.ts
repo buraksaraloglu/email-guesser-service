@@ -7,9 +7,9 @@ export const guessSchema = {
   type: 'object',
   properties: {
     fullName: { type: 'string' },
-    domainUrl: { type: 'string' }
+    companyUrl: { type: 'string' }
   },
-  required: ['fullName', 'domainUrl']
+  required: ['fullName', 'companyUrl']
 } as const;
 
 // Body Schema
@@ -28,7 +28,7 @@ export type postGuessResponse = FromSchema<typeof postGuessResponseSchema>;
 /* Post */
 export const postGuessSchema: FastifySchema = {
   tags: ['Guess'],
-  description: 'Guess an email address from a full name and domain',
+  description: 'Guess an email address from a full name and company url',
   body: guessSchema,
   response: {
     200: {

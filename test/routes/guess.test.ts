@@ -7,7 +7,7 @@ describe('guess route', () => {
       url: '/v1/guess',
       payload: {
         fullName: 'Nina Simons',
-        domainUrl: 'babbel.com'
+        companyUrl: 'babbel.com'
       }
     });
 
@@ -23,7 +23,7 @@ describe('guess route', () => {
       url: '/v1/guess',
       payload: {
         fullName: 'Priya Kuber',
-        domainUrl: 'linkedin.com'
+        companyUrl: 'linkedin.com'
       }
     });
 
@@ -39,7 +39,7 @@ describe('guess route', () => {
       url: '/v1/guess',
       payload: {
         fullName: 'Burak',
-        domainUrl: 'babbel.com'
+        companyUrl: 'babbel.com'
       }
     });
 
@@ -48,18 +48,18 @@ describe('guess route', () => {
     expect(error).toEqual('Invalid fullName');
   });
 
-  it('/guess -> responds with 400 status code with invalid domainUrl error', async () => {
+  it('/guess -> responds with 400 status code with invalid companyUrl error', async () => {
     const response = await app.inject({
       method: 'POST',
       url: '/v1/guess',
       payload: {
         fullName: 'Burak Saraloglu',
-        domainUrl: 'babbel'
+        companyUrl: 'babbel'
       }
     });
 
     expect(response.statusCode).toBe(400);
     const { error } = JSON.parse(response.payload);
-    expect(error).toEqual('Invalid domainUrl');
+    expect(error).toEqual('Invalid companyUrl');
   });
 });
