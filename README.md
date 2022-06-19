@@ -2,6 +2,8 @@
 
 Email guesser service's purpose is to guess the email address of a person from a given name with a conventional format of the company URLs.
 
+Please visit the [frontend repository here](https://github.com/buraksaraloglu/email-guesser).
+
 ## Key Features
 
 - CI pipeline that runs tests and builds the project and deploys it to the production environment.
