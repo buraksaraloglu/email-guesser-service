@@ -25,10 +25,6 @@ export const getEmailFormatConvention = (companyUrl: IEmailAddress['url']): stri
   Object.keys(defaultEmails).forEach((fullname) => {
     const [firstName] = getFirstAndLastName(fullname);
 
-    if (!firstName) {
-      return;
-    }
-
     const email = defaultEmails[fullname];
     const cleanCompanyUrl = clearUrl(email.split('@')[1]);
 

@@ -78,6 +78,10 @@ describe('guess route', () => {
     {
       request: createRequest({ fullName: 'Burak Saraloglu', companyUrl: 'http://.com' }),
       expected: 'Invalid companyUrl'
+    },
+    {
+      request: createRequest({ fullName: 'Burak Saraloglu', companyUrl: 'invalid.com' }), // edge case for testing bad request
+      expected: 'Invalid company URL: invalid.com'
     }
   ])(
     '($request.body.fullName, $request.body.companyUrl) should return error: $expected',
