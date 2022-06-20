@@ -9,65 +9,84 @@ afterAll(async () => {
 });
 
 describe('guess route', () => {
-  it('/guess -> responds with generated short name email', async () => {
-    const response = await app.inject({
-      method: 'POST',
-      url: '/v1/guess',
-      payload: {
-        fullName: 'Nina Simons',
-        companyUrl: 'babbel.com'
-      }
-    });
-
-    expect(response.statusCode).toBe(200);
-
-    const { email } = JSON.parse(response.payload);
-    expect(email).toEqual('nsimons@babbel.com');
+  const createRequest = ({ fullName, companyUrl }: { fullName: string; companyUrl: string }) => ({
+    method: 'POST' as const,
+    url: '/v1/guess',
+    body: {
+      fullName,
+      companyUrl
+    }
   });
 
-  it('/guess -> responds with generated full name email', async () => {
-    const response = await app.inject({
-      method: 'POST',
-      url: '/v1/guess',
-      payload: {
-        fullName: 'Priya Kuber',
-        companyUrl: 'linkedin.com'
-      }
-    });
+  test.each([
+    {
+      request: createRequest({ fullName: 'Nina Simons', companyUrl: 'babbel.com' }),
+      expected: 'nsimons@babbel.com'
+    },
+    {
+      request: createRequest({ fullName: 'Priya Kuber', companyUrl: 'linkedin.com' }),
+      expected: 'priyakuber@linkedin.com'
+    },
+    {
+      request: createRequest({ fullName: 'Nina Simons', companyUrl: 'babbel.com' }),
+      expected: 'nsimons@babbel.com'
+    },
+    {
+      request: createRequest({ fullName: 'Nina Simons', companyUrl: 'babbel.com' }),
+      expected: 'nsimons@babbel.com'
+    }
+  ])(
+    '($request.body.fullName, $request.body.companyUrl) should return $expected',
+    async ({ request, expected }) => {
+      const response = await app.inject(request);
+      expect(response.statusCode).toBe(200);
 
-    expect(response.statusCode).toBe(200);
+      const { email } = JSON.parse(response.payload);
+      expect(email).toEqual(expected);
+    }
+  );
 
-    const { email } = JSON.parse(response.payload);
-    expect(email).toEqual('priyakuber@linkedin.com');
-  });
+  test.each([
+    {
+      request: createRequest({ fullName: 'Burak', companyUrl: 'babbel.com' }),
+      expected: 'Invalid fullName'
+    },
+    {
+      request: createRequest({ fullName: '', companyUrl: 'babbel.com' }),
+      expected: 'Invalid fullName'
+    },
+    {
+      request: createRequest({ fullName: '123', companyUrl: 'babbel.com' }),
+      expected: 'Invalid fullName'
+    },
+    {
+      request: createRequest({ fullName: '123 123', companyUrl: 'babbel.com' }),
+      expected: 'Invalid fullName'
+    },
+    {
+      request: createRequest({ fullName: 'Burak Saraloglu', companyUrl: 'babbel' }),
+      expected: 'Invalid companyUrl'
+    },
+    {
+      request: createRequest({ fullName: 'Burak Saraloglu', companyUrl: '' }),
+      expected: 'Invalid companyUrl'
+    },
+    {
+      request: createRequest({ fullName: 'Burak Saraloglu', companyUrl: '.com' }),
+      expected: 'Invalid companyUrl'
+    },
+    {
+      request: createRequest({ fullName: 'Burak Saraloglu', companyUrl: 'http://.com' }),
+      expected: 'Invalid companyUrl'
+    }
+  ])(
+    '($request.body.fullName, $request.body.companyUrl) should return error: $expected',
+    async ({ request, expected }) => {
+      const response = await app.inject(request);
+      expect(response.statusCode).toBe(400);
 
-  it('/guess -> responds with 400 status code with invalid full name error', async () => {
-    const response = await app.inject({
-      method: 'POST',
-      url: '/v1/guess',
-      payload: {
-        fullName: 'Burak',
-        companyUrl: 'babbel.com'
-      }
-    });
-
-    expect(response.statusCode).toBe(400);
-    const { error } = JSON.parse(response.payload);
-    expect(error).toEqual('Invalid fullName');
-  });
-
-  it('/guess -> responds with 400 status code with invalid companyUrl error', async () => {
-    const response = await app.inject({
-      method: 'POST',
-      url: '/v1/guess',
-      payload: {
-        fullName: 'Burak Saraloglu',
-        companyUrl: 'babbel'
-      }
-    });
-
-    expect(response.statusCode).toBe(400);
-    const { error } = JSON.parse(response.payload);
-    expect(error).toEqual('Invalid companyUrl');
-  });
+      const { error } = JSON.parse(response.payload);
+      expect(error).toEqual(expected);
+    }
+  );
 });

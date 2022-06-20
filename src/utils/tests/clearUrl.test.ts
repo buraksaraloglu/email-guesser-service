@@ -1,62 +1,52 @@
 import { clearUrl } from '../helpers';
 
-interface ICase {
-  given: string;
-  expected: string | null;
-}
+describe('clearUrl', () => {
+  const expectedTruthyUrl = 'babbel.com';
+  const expectedFalsyUrl = null;
 
-const casify = async (title: string, cases: ICase[]) => {
-  if (cases.length === 0) {
-    return;
-  }
-
-  it(title, () => {
-    for (const { given, expected } of cases) {
-      expect(clearUrl(given)).toStrictEqual(expected);
+  test.each([
+    {
+      given: 'babbel.com',
+      expected: expectedTruthyUrl
+    },
+    {
+      given: 'https://babbel.com',
+      expected: expectedTruthyUrl
+    },
+    {
+      given: 'www.babbel.com',
+      expected: expectedTruthyUrl
+    },
+    {
+      given: 'https://www.babbel.com',
+      expected: expectedTruthyUrl
+    },
+    {
+      given: 'https://babbel.com/test?test=test',
+      expected: expectedTruthyUrl
+    },
+    {
+      given: 'https://babbel.com/test/test',
+      expected: expectedTruthyUrl
     }
+  ])('$given should return $expected', ({ given, expected }) => {
+    expect(clearUrl(given)).toStrictEqual(expected);
   });
-};
 
-// truthy cases
-casify('should return clean url', [
-  {
-    given: 'babel.com',
-    expected: 'babel.com'
-  },
-  {
-    given: 'https://babbel.com',
-    expected: 'babbel.com'
-  },
-  {
-    given: 'www.babbel.com',
-    expected: 'babbel.com'
-  },
-  {
-    given: 'https://www.babbel.com',
-    expected: 'babbel.com'
-  },
-  {
-    given: 'https://babbel.com/test?test=test',
-    expected: 'babbel.com'
-  },
-  {
-    given: 'https://babbel.com/test/test',
-    expected: 'babbel.com'
-  }
-]);
-
-// falsy cases
-casify('should return empty string if url is not valid', [
-  {
-    given: 'ttt...com',
-    expected: null
-  },
-  {
-    given: 'http://.com',
-    expected: null
-  },
-  {
-    given: 'babbel 👋',
-    expected: null
-  }
-]);
+  test.each([
+    {
+      given: 'ttt...com',
+      expected: expectedFalsyUrl
+    },
+    {
+      given: 'http://.com',
+      expected: expectedFalsyUrl
+    },
+    {
+      given: 'babbel 👋',
+      expected: expectedFalsyUrl
+    }
+  ])('$given should return $expected', ({ given, expected }) => {
+    expect(clearUrl(given)).toStrictEqual(expected);
+  });
+});
